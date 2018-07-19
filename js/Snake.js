@@ -32,6 +32,15 @@ export function Snake() {
     function update() {
         const game = Engine.Game;
 
+        const playerLose = _this.body[0].x <= 0 ||
+            _this.body[0].y <= 0 ||
+            _this.body[0].x >= (game.canvas.width / game.tileSize) ||
+            _this.body[0].y >= (game.canvas.height / game.tileSize);
+        if (playerLose) {
+            game.setGameState(game.GAME_STATES.ENDED.key);
+            return;
+        }
+
         if (game.currentState == game.GAME_STATES.NOT_STARTED.key) {
             if (_this.direction.y == -1 && _this.nextPosition.y <= (game.canvas.height * 0.1 / game.tileSize)) {
                 _this.direction = { x: 1, y: 0 };

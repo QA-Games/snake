@@ -3,6 +3,7 @@
 import { Engine } from './Engine.js';
 import { Snake } from './Snake.js';
 import { Tile } from './Tile.js';
+import { Display } from './Display.js';
 
 export function Game(config) {
 
@@ -13,7 +14,7 @@ export function Game(config) {
     const GAME_STATES = {
         NOT_STARTED: { key: 'NOT_STARTED', action: notStarted },
         RUNNING: { key: 'RUNNING', action: running },
-        //ENDED: { key: 'ENDED', action: ended },
+        ENDED: { key: 'ENDED', action: ended },
         PAUSED: { key: 'PAUSED', action: paused },
     };
 
@@ -33,9 +34,11 @@ export function Game(config) {
 
         _this.Snake = new Snake();
         _this.Tile = new Tile();
+        _this.Display = new Display();
 
         _this.components = [
             _this.Snake,
+            _this.Display
         ];
 
         setGameState(GAME_STATES.NOT_STARTED.key);
@@ -65,12 +68,14 @@ export function Game(config) {
         }
     }
 
-    // function ended() {
-    //     Engine.display.draw('GAME OVER YEAHHHH!!!!!');
-    // }
+    function ended() {
+        _this.Display.text = 'Fim de jogo!';
+        Engine.draw();
+    }
 
 
     function notStarted() {
+        _this.Display.text = 'Pressione as setas para jogar!';
         Engine.update();
         Engine.draw();
     }
@@ -80,8 +85,11 @@ export function Game(config) {
     }
 
     function running() {
-        if (_this.components.length == 1) {
+        if (_this.components.length == 2) {
             _this.components.push(_this.Tile);
+        }
+        if (_this.Display.text) {
+            _this.Display.text = '';
         }
         Engine.update();
         Engine.draw();
