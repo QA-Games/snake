@@ -4,6 +4,7 @@ import { Engine } from './Engine.js';
 import { Snake } from './Snake.js';
 import { Tile } from './Tile.js';
 import { Display } from './Display.js';
+import { Score } from './Score.js';
 
 export function Game(config) {
 
@@ -26,7 +27,7 @@ export function Game(config) {
     function init(config) {
 
         Engine.Game = _this;
-        
+
         _this.fps = config.fps;
         _this.GAME_STATES = GAME_STATES;
 
@@ -35,10 +36,13 @@ export function Game(config) {
         _this.Snake = new Snake();
         _this.Tile = new Tile();
         _this.Display = new Display();
+        _this.Score = new Score();
 
         _this.components = [
             _this.Snake,
-            _this.Display
+            _this.Display,
+            _this.Score
+
         ];
 
         setGameState(GAME_STATES.NOT_STARTED.key);
@@ -85,7 +89,7 @@ export function Game(config) {
     }
 
     function running() {
-        if (_this.components.length == 2) {
+        if (_this.components.length == 3) {
             _this.components.push(_this.Tile);
         }
         if (_this.Display.text) {

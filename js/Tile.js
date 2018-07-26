@@ -11,13 +11,14 @@ export function Tile() {
 
     _this.update = update;
     _this.draw = draw;
-    
+
     function update() {
         if (_this.position.x == 0 && _this.position.y == 0) {
             positionTile();
         } else if (findTile()) {
             positionTile();
             Engine.Game.Snake.incrementBody();
+            Engine.Game.Score.points ++;
         }
     }
 
