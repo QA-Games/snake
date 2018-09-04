@@ -1,2 +1,2 @@
 # Snake
-Click [here](https://tiagopaes.github.io/snake/) to play!
+Click [here](https://qa-games.github.io/snake/) to play!
