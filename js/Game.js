@@ -83,9 +83,9 @@ export function Game(config) {
         if (_this.showRank) {
             let name = window.prompt("Your name:", "Snake");
             _this.RankService.getToken();
-            _this.RankService.register(name, _this.Score.points);    
-            console.log(_this.RankService.getRank());        
-            _this.Rank.draw(_this.RankService.getRank());
+            _this.RankService.register(name, _this.Score.points);
+            _this.RankService.getRank();
+            _this.components.push(_this.Rank);
             _this.showRank = false;
         }
         

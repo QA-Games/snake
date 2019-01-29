@@ -1,7 +1,7 @@
 'use strict';
 
 export function RankService() {
-    this.url = 'http://localhost:8000/';
+    this.url = 'http://138c4178.ngrok.io/';
     this.username = "test@mailinator.com";
     this.password = "123456";
     this.clientSecret = '2VBJUSGbZZU7emKJIViSfNJVLsjlnCOzMK44seio';
@@ -38,7 +38,7 @@ export function RankService() {
     }
 
     function getRank() {
-        fetch(this.url + 'api/ranking/' + this.rankId + '/player',{
+        fetch(this.url + 'api/ranking/' + this.rankId + '/player?limit=5',{
             method: 'GET',
             mode: 'cors',
             headers: {
@@ -48,12 +48,13 @@ export function RankService() {
         }).then((response) => {
             return response.json();
         }).then((data) => {
-            this.players = data.data;
+            console.log('data',data);
+            this.players = data;
         }).catch((err) => {
             console.log(err);
         });
 
-        console.log(this.players);
+
     }
     
     function login() {

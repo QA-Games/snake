@@ -11,17 +11,21 @@ export function Rank() {
 
     function update() {}
 
-    function draw(rank) {
+    function draw() {
         const fontSize = getFontSize();
-        rank.forEach((player) => {
-            Engine.Game.ctx.fillStyle = '#000';
-            Engine.Game.ctx.font = fontSize + 'px Arial';
-            Engine.Game.ctx.textAlign = 'left';
-            let x = 50;
-            let y = Math.floor(Engine.Game.canvas.width / 30);
-            Engine.Game.ctx.fillText(player.name,  x, y);
-            y += 20;
-        });            
+        const y = Engine.Game.canvas.width / 30;
+        const x = Math.floor(Engine.Game.canvas.width / 2);
+        let heigth = 0;
+        if (Engine.Game.RankService.players) {
+            Engine.Game.RankService.players.forEach((player) => {
+                Engine.Game.ctx.fillStyle = '#000';
+                Engine.Game.ctx.font = fontSize + 'px Arial';
+                Engine.Game.ctx.textAlign = 'left';
+                
+                Engine.Game.ctx.fillText(player.name, x, (y + heigth));
+                heigth += fontSize;
+            });
+        }
     }
 
     function getFontSize() {
