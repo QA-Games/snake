@@ -13,17 +13,22 @@ export function Rank() {
 
     function draw() {
         const fontSize = getFontSize();
-        const y = Engine.Game.canvas.width / 30;
-        const x = Math.floor(Engine.Game.canvas.width / 2);
+        const y = Math.floor(Engine.Game.canvas.height / 4);
+        const x = Math.floor(Engine.Game.canvas.width / 2.5);
         let heigth = 0;
+        let header = false;
+
         if (Engine.Game.RankService.players) {
-            Engine.Game.RankService.players.forEach((player) => {
+            Engine.Game.RankService.players.forEach((player, index) => {                
                 Engine.Game.ctx.fillStyle = '#000';
                 Engine.Game.ctx.font = fontSize + 'px Arial';
                 Engine.Game.ctx.textAlign = 'left';
-                
-                Engine.Game.ctx.fillText(player.name, x, (y + heigth));
+                if (!header) {
+                    header = true;
+                    Engine.Game.ctx.fillText('# | Rank', x, (y + heigth));
+                }
                 heigth += fontSize;
+                Engine.Game.ctx.fillText(index + 1 + ' - ' + player.name.substr(0, 3).toUpperCase() + ' ... ' + player.score, x, (y + heigth));                
             });
         }
     }

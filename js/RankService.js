@@ -1,7 +1,7 @@
 'use strict';
 
 export function RankService() {
-    this.url = 'http://138c4178.ngrok.io/';
+    this.url = 'http://localhost:8000/';
     this.username = "test@mailinator.com";
     this.password = "123456";
     this.clientSecret = '2VBJUSGbZZU7emKJIViSfNJVLsjlnCOzMK44seio';
@@ -43,7 +43,8 @@ export function RankService() {
             mode: 'cors',
             headers: {
                 "Authorization": 'Bearer ' + window.localStorage.getItem('token'), 
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "limit": 5
             }
         }).then((response) => {
             return response.json();
