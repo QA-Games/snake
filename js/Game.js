@@ -5,12 +5,15 @@ import { Snake } from './Snake.js';
 import { Tile } from './Tile.js';
 import { Display } from './Display.js';
 import { Score } from './Score.js';
+import { Rank } from './Rank.js';
+import { RankService } from './RankService.js';
 
 export function Game(config) {
 
     const _this = this;
 
     _this.frames = 0;
+    _this.showRank = true;
 
     const GAME_STATES = {
         NOT_STARTED: { key: 'NOT_STARTED', action: notStarted },
@@ -37,6 +40,8 @@ export function Game(config) {
         _this.Tile = new Tile();
         _this.Display = new Display();
         _this.Score = new Score();
+        _this.Rank = new Rank();
+        _this.RankService = new RankService();
 
         _this.components = [
             _this.Snake,
@@ -75,6 +80,15 @@ export function Game(config) {
     function ended() {
         _this.Display.text = 'Fim de jogo!';
         Engine.draw();
+        if (_this.showRank) {
+            let name = window.prompt("Your name:", "Snake");
+            _this.RankService.getToken();
+            _this.RankService.register(name, _this.Score.points);    
+            console.log(_this.RankService.getRank());        
+            _this.Rank.draw(_this.RankService.getRank());
+            _this.showRank = false;
+        }
+        
     }
 
 
